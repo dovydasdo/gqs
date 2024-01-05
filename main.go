@@ -1,17 +1,20 @@
 package main
 
 import (
+	"context"
 	"net/http"
 
+	"github.com/dovydasdo/gqs/templates"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
-	r.LoadHTMLFiles("dist/index.html")
+	// r.LoadHTMLFiles("dist/index.html")
 	r.GET("/", func(c *gin.Context) {
-		// c.Data(200, "text/html; charset=utf-8", []byte("cool"))
-		c.HTML(http.StatusOK, "index.html", gin.H{})
+		comp := templates.Hello("beans")
+		comp.Render(context.Background(), c.Writer)
+
 	})
 
 	http.ListenAndServe(":8080", r)

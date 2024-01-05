@@ -1,3 +1,8 @@
 package generators
 
-type MainGenerator struct{}
+type MainStatsReader interface {
+	GetDailyStatsByCity() ([]models.DailyStatsByCity, error)
+}
+
+type MainGenerator struct {
+}
