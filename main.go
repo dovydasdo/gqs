@@ -24,11 +24,14 @@ func main() {
 	case "serve":
 		// TODO: check if static files are present if not maybe regenerate?
 
+		// TODO: dont use the defaults
 		r := gin.Default()
-		r.LoadHTMLFiles("dist/index.html")
+		r.LoadHTMLFiles("assets/static/index.html")
 		r.GET("/", func(c *gin.Context) {
 			c.HTML(http.StatusOK, "index.html", gin.H{})
 		})
+
+		r.Static("/assets", "./assets/dist")
 
 		http.ListenAndServe(":8080", r)
 	case "gen":
@@ -52,7 +55,7 @@ func main() {
 
 		mainGen := generators.GetMainGenerator(reader)
 
-		err = mainGen.Generate("./dist/index.html")
+		err = mainGen.Generate("./assets/static/index.html")
 		if err != nil {
 			log.Printf("Failed to generate files: %v", err)
 		}

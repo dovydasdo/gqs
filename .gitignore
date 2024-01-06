@@ -23,4 +23,6 @@ go.work
 gqs
 
 .cache/
-.dist/
+assets/dist/
+assets/static/
+node_modules/
