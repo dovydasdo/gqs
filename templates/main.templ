@@ -6,6 +6,7 @@ import "strconv"
 
 templ Main(args []models.DailyStatsByCity) {
 	@shared.Page("home"){
+		@Info()
 		<div id="all-stats">
 			@AllStats(args)
 		</div>
@@ -15,20 +16,34 @@ templ Main(args []models.DailyStatsByCity) {
 templ AllStats(stats []models.DailyStatsByCity){
 		<li>
 			for _, stat := range stats{
-				<div>
+				<div id="city">
 				city= {stat.City}
 				</div>
-
-				<div>
-					price per sqare = {strconv.FormatFloat(stat.AveragePricePerSquare, 'b', -1, 64)}
+				<div id="price">
+					average price= {intToString(stat.AveragePrice)}
 				</div>
-				<div>
-					average price= {strconv.FormatFloat(stat.AveragePricePerSquare, 'b', -1, 64)}
+				<div id="pps">
+					price per sqare = {floatToString(stat.AveragePricePerSquare)}
+				</div>
+				<div id="ftg">
+					average footage = {floatToString(stat.AverageFootage)}
 				</div>
 				<br/>
 			}
 		</li>
-
 }
 
-func floatToString(f float64)
+templ Info(){
+	<p>
+		<h1>Graphs for all the things...</h1>	
+	</p>
+}
+ 
+
+func floatToString(f float64) string{
+	return strconv.FormatFloat(f, 'f', -1, 64)
+}
+
+func intToString(i int) string{
+	return strconv.Itoa(i)
+}
