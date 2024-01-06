@@ -11,9 +11,6 @@ import (
 )
 
 func main() {
-
-	// var mode string
-
 	mode := flag.String("mode", "none", "mode of running. SERVE for serving mode, GEN for regenerating templates")
 	source := flag.String("source", "psql", "data source from which to generate templates")
 
@@ -23,7 +20,6 @@ func main() {
 	switch *mode {
 	case "serve":
 		// TODO: check if static files are present if not maybe regenerate?
-
 		// TODO: dont use the defaults
 		r := gin.Default()
 		r.LoadHTMLFiles("assets/static/index.html")
