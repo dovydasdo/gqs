@@ -24,6 +24,7 @@ func main() {
 	case "serve":
 		// TODO: check if static files are present if not maybe regenerate?
 
+		// TODO: dont use the defaults
 		r := gin.Default()
 		r.LoadHTMLFiles("assets/static/index.html")
 		r.GET("/", func(c *gin.Context) {

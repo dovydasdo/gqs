@@ -12,6 +12,7 @@ import (
 	"github.com/dovydasdo/gqs/models"
 )
 
+// TODO: glob for caching
 type LocalCSVCache struct {
 	pathsToCache []string
 }
