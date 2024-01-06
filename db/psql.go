@@ -3,7 +3,6 @@ package db
 import (
 	"fmt"
 	"log"
-	"os"
 	"time"
 
 	"github.com/dovydasdo/gqs/config"
@@ -26,8 +25,7 @@ func GetPSQLDB() (*PSQLDB, error) {
 	}
 	conn, err := pgx.Connect(conConf)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
-		os.Exit(1)
+		log.Panicf("failed to connect to db: %v", err)
 	}
 
 	return &PSQLDB{

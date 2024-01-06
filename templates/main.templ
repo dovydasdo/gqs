@@ -1,5 +1,34 @@
 package templates
 
-templ Hello(name string) {
-	<div>Hello, { name }</div>
+import "github.com/dovydasdo/gqs/templates/shared"
+import "github.com/dovydasdo/gqs/models"
+import "strconv"
+
+templ Main(args []models.DailyStatsByCity) {
+	@shared.Page("home"){
+		<div id="all-stats">
+			@AllStats(args)
+		</div>
+	}
 }
+
+templ AllStats(stats []models.DailyStatsByCity){
+		<li>
+			for _, stat := range stats{
+				<div>
+				city= {stat.City}
+				</div>
+
+				<div>
+					price per sqare = {strconv.FormatFloat(stat.AveragePricePerSquare, 'b', -1, 64)}
+				</div>
+				<div>
+					average price= {strconv.FormatFloat(stat.AveragePricePerSquare, 'b', -1, 64)}
+				</div>
+				<br/>
+			}
+		</li>
+
+}
+
+func floatToString(f float64)
