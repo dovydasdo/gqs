@@ -13,6 +13,10 @@ generate_prod:
 start:
 	./gqs -mode serve
 
+setup:
+	go get .
+	npm install
+
 clear:
 	rm ./gqs
 	rm ./assets/dist/*

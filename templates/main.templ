@@ -1,36 +1,40 @@
 package templates
 
 import "github.com/dovydasdo/gqs/templates/shared"
+import "github.com/dovydasdo/gqs/templates/components/graphs"
 import "github.com/dovydasdo/gqs/models"
 import "strconv"
 
 templ Main(args []models.DailyStatsByCity) {
 	@shared.Page("home"){
 		@Info()
-		<div id="all-stats">
-			@AllStats(args)
+		<div class="flex-initial w-800">
+			@graphs.AllInfo(args)
+			// @AllStats(args)
 		</div>
 	}
 }
 
 templ AllStats(stats []models.DailyStatsByCity){
-		<li>
+		<div class="flex flex-col">
 			for _, stat := range stats{
-				<div id="city">
-				city= {stat.City}
+				<div class="flex-auto">
+					<div id="city">
+					city= {stat.City}
+					</div>
+					<div id="price">
+						average price= {intToString(stat.AveragePrice)}
+					</div>
+					<div id="pps">
+						price per sqare = {floatToString(stat.AveragePricePerSquare)}
+					</div>
+					<div id="ftg">
+						average footage = {floatToString(stat.AverageFootage)}
+					</div>
+					<br/>
 				</div>
-				<div id="price">
-					average price= {intToString(stat.AveragePrice)}
-				</div>
-				<div id="pps">
-					price per sqare = {floatToString(stat.AveragePricePerSquare)}
-				</div>
-				<div id="ftg">
-					average footage = {floatToString(stat.AverageFootage)}
-				</div>
-				<br/>
 			}
-		</li>
+		</div>
 }
 
 templ Info(){

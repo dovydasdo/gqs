@@ -1,0 +1,63 @@
+package graphs
+
+import "log"
+import "math"
+
+import (
+    "github.com/dovydasdo/gqs/templates/shared"
+    "github.com/dovydasdo/gqs/models"
+    "github.com/dovydasdo/gqs/domain"
+    )
+
+templ AllInfo(data []models.DailyStatsByCity){
+    @shared.Info("Rent graphs", "information about rent data..."){
+        for _, c := range getStatsByCity(data){
+            @Graph(c, getMax(c), getMax(c) - getMin(c))
+        }
+    }
+}
+
+func getStatsByCity(d []models.DailyStatsByCity) []models.StatsByCity{
+    stats, err := domain.GetStatsByCity(d)
+    if err != nil{
+        log.Printf("failed to parse data by city")
+        return make([]models.StatsByCity, 0)
+    }
+
+    return stats
+}
+
+func getMax(d models.StatsByCity) int{
+    max := math.MinInt
+
+    for _, val := range d.PriceStats{
+        if val > max{
+            max = val
+        }
+    }
+
+    if max == math.MinInt{
+        log.Printf("failed to get min/max val for price")
+        return 0
+    }
+
+
+    return max
+}
+func getMin(d models.StatsByCity) int{
+    min := math.MaxInt
+
+    for _, val := range d.PriceStats{
+        if val < min{
+            min= val
+        }
+    }
+
+    if min == math.MinInt{
+        log.Printf("failed to get min/max val for price")
+        return 0
+    }
+
+
+    return min 
+}
