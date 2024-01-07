@@ -1,0 +1,18 @@
+package shared
+
+templ Info(title, explanation string){
+    <div>
+        <div>
+            <div>
+                {title}
+            </div>
+            <div>
+                {explanation}
+            </div>
+        </div>
+
+        <div class="flex flex-col">
+            {children...}
+        </div>
+    </div>
+}
