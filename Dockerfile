@@ -24,6 +24,8 @@ WORKDIR /
 
 COPY --from=build-stage .out/gqs /
 COPY --from=build-stage .out/generator /
+RUN mkdir assets
+RUN mkdir assets/static
 COPY ./assets /assets
 COPY ./fullchain.pem /
 COPY ./privkey.pem /
