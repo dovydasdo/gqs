@@ -25,6 +25,9 @@ WORKDIR /
 COPY --from=build-stage .out/gqs /
 COPY --from=build-stage .out/generator /
 COPY ./assets /assets
+COPY ./fullchain.pem /
+COPY ./privkey.pem /
+
 # COPY ./init.sh /init.sh
 # RUN ["chmod", "+x", "/init.sh"]
 
