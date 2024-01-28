@@ -16,7 +16,7 @@ RUN mkdir assets/dist
 RUN mkdir assets/static
 
 RUN templ generate
-RUN tailwindcss-linux-x64 -i ./assets/tailwind.css -o ./assets/dist/styles.css --minify
+RUN ./tailwindcss-linux-x64 -i ./assets/tailwind.css -o ./assets/dist/styles.css --minify
 RUN	CGO_ENABLED=0 GOOS=linux go build -o .out/gqs cmd/gqs/main.go 
 RUN	CGO_ENABLED=0 GOOS=linux go build -o .out/generator cmd/generator/main.go
 # RUN CGO_ENABLED=0 GOOS=linux go build -o /gqs cmd/gqs
