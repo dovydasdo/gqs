@@ -24,7 +24,7 @@ func main() {
 	r.Static("/assets", "./assets/dist")
 
 	if *prod {
-		r.RunTLS(":443", "/etc/letsencrypt/live/graphquasar.com/fullchain.pem", "/etc/letsencrypt/live/graphquasar.com/privkey.pem")
+		r.RunTLS(":443", "./fullchain.pem", "./privkey.pem")
 	} else {
 		r.Run(":8080")
 	}
