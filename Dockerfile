@@ -28,4 +28,4 @@ COPY ./assets /assets
 # COPY ./init.sh /init.sh
 # RUN ["chmod", "+x", "/init.sh"]
 
-ENTRYPOINT ["/bin/sh", "-c", "./generator -source psql && ./gqs"]
+ENTRYPOINT ["/bin/sh", "-c", "./generator -source psql && ./gqs -prod"]
