@@ -1,7 +1,7 @@
 # Build the application from source
 FROM golang:1.21 AS build-stage
 
-WORKDIR /
+WORKDIR /gqs
 
 COPY . .
 RUN apt update
@@ -24,15 +24,12 @@ RUN	CGO_ENABLED=0 GOOS=linux go build -o .out/generator cmd/generator/main.go
 # Deploy the application binary into a lean image
 # FROM gcr.io/distroless/base-debian11 AS build-release-stage
 FROM alpine:3.11.3 AS build-release-stage
-WORKDIR /
+WORKDIR /gqs
 
-COPY --from=build-stage .out/gqs /
-COPY --from=build-stage .out/generator /
-COPY ./assets /assets
+COPY --from=build-stage /gqs/.out/gqs gqs
+COPY --from=build-stage /gqs/.out/generator generator
+COPY --from=build-stage /gqs/assets /gqs/assets
 COPY ./fullchain.pem /
 COPY ./privkey.pem /
 
-# COPY ./init.sh /init.sh
-# RUN ["chmod", "+x", "/init.sh"]
-
-ENTRYPOINT ["/bin/sh", "-c", "./generator -source psql && ./gqs -prod"]
+ENTRYPOINT ["/bin/sh", "-c", "/gqs/generator -source psql && /gqs/gqs -prod"]
