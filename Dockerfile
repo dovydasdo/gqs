@@ -29,7 +29,7 @@ WORKDIR /gqs
 COPY --from=build-stage /gqs/.out/gqs gqs
 COPY --from=build-stage /gqs/.out/generator generator
 COPY --from=build-stage /gqs/assets /gqs/assets
-COPY ./fullchain.pem /
-COPY ./privkey.pem /
+COPY ./fullchain.pem /gqs/fullchain.pem
+COPY ./privkey.pem /gqs/privkey.pem
 
 ENTRYPOINT ["/bin/sh", "-c", "/gqs/generator -source psql && /gqs/gqs -prod"]
