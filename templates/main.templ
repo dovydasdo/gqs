@@ -1,53 +1,23 @@
 package templates
 
 import "github.com/dovydasdo/gqs/templates/shared"
-import "github.com/dovydasdo/gqs/templates/components/graphs"
-import "github.com/dovydasdo/gqs/models"
-import "strconv"
+import "github.com/dovydasdo/gqs/templates/components/stats"
+import "github.com/dovydasdo/gqs/templates/components/menu"
 
-templ Main(args []models.DailyStatsByCity) {
-	@shared.Page("home"){
-		@Info()
-		<div class="flex-initial w-800">
-			@graphs.AllInfo(args)
-			// @AllStats(args)
+templ Main() {
+	@shared.Page("Graphquasar") {
+		<div class="flex min-h-screen">
+			@menu.Menu("Graphquasar", "/svgs/logo.svg") {
+				@menu.MenuItem("About", "/svgs/info.svg")
+				@menu.MenuItem("Rent", "/svgs/rent.svg")
+				<p class="pl-6 pt-8">more comming soon...</p>
+			}
+			<div class="flex-auto">
+				<main class="min-h-screen bg-white">
+					@stats.Grid("General rent stats for past x mounths", "cool description")
+				</main>
+				@shared.Footer()
+			</div>
 		</div>
 	}
-}
-
-templ AllStats(stats []models.DailyStatsByCity){
-		<div class="flex flex-col">
-			for _, stat := range stats{
-				<div class="flex-auto">
-					<div id="city">
-					city= {stat.City}
-					</div>
-					<div id="price">
-						average price= {intToString(stat.AveragePrice)}
-					</div>
-					<div id="pps">
-						price per sqare = {floatToString(stat.AveragePricePerSquare)}
-					</div>
-					<div id="ftg">
-						average footage = {floatToString(stat.AverageFootage)}
-					</div>
-					<br/>
-				</div>
-			}
-		</div>
-}
-
-templ Info(){
-	<p>
-		<h1>Graphs for all the things...</h1>	
-	</p>
-}
- 
-
-func floatToString(f float64) string{
-	return strconv.FormatFloat(f, 'f', -1, 64)
-}
-
-func intToString(i int) string{
-	return strconv.Itoa(i)
 }
