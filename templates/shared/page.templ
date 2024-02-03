@@ -10,17 +10,18 @@ templ Page(title string) {
 			<meta name="robots" content="index, follow"/>
 			<meta name="revisit-after" content="7 days"/>
 			<meta name="language" content="English"/>
+			<link rel="icon" type="image/x-icon" href="/svgs/logo.svg"/>
 			<link rel="stylesheet" href="/assets/styles.css"/>
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css"/>
+			<script src="https://unpkg.com/htmx.org@1.9.10"></script>
 			<style>
 		    html, body {
 		      height: 100%;
 		    }
 		  </style>
 		</head>
-		<body class="bg-indigo-950 text-purple-100 font-mono flex flex-col min-h-screen">
+		<body class="bg-indigo-950 text-purple-100 font-mono">
 			{ children... }
 		</body>
-		@Footer()
 	</html>
 }

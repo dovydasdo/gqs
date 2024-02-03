@@ -1,0 +1,10 @@
+package menu
+
+templ MenuItem(name, svgPath string) {
+	<div class="flex cursor-pointer hover:bg-sky-700 pl-3 pt-2 pb-2">
+		<a class="flex items-center  text-gray-100 bg-opacity-25" href="#">
+			<img class="w-10 h-10" src={ svgPath } alt="icon"/>
+			<span class="pl-4">{ name }</span>
+		</a>
+	</div>
+}

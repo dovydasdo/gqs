@@ -1,0 +1,10 @@
+package menu
+
+templ Title(name, svgPath string) {
+	<div class="pl-6 pt-5 pb-10 flex">
+		<div class="flex items-center cursor-pointer">
+			<img class="h-14 w-14" src={ svgPath } alt="title image"/>
+			<span class="pl-2 font-semibold text-white">{ name }</span>
+		</div>
+	</div>
+}

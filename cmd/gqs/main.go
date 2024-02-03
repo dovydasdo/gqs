@@ -26,6 +26,7 @@ func main() {
 	})
 
 	r.Static("/assets", "./assets/dist")
+	r.Static("/svgs", "./assets/svgs")
 
 	if *prod {
 		r.RunTLS(":443", "./fullchain.pem", "./privkey.pem")
