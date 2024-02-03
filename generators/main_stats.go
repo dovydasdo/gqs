@@ -23,8 +23,19 @@ func GetMainGenerator(reader MainStatsReader) *MainGenerator {
 	}
 }
 
-func (g *MainGenerator) Generate(path string) error {
+func (g *MainGenerator) GenerateIndex(path string) error {
+	file, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
 
+	templates.Main().Render(context.Background(), file)
+
+	return nil
+}
+
+func (g *MainGenerator) GenerateRentPage(path string) error {
 	args, err := g.Reader.GetDailyStatsByCity()
 	if err != nil {
 		return err
@@ -37,7 +48,7 @@ func (g *MainGenerator) Generate(path string) error {
 	}
 	defer file.Close()
 
-	templates.Main(args).Render(context.Background(), file)
+	templates.MainRentPage(args).Render(context.Background(), file)
 
 	return nil
 }

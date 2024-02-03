@@ -1,0 +1,31 @@
+# Build the application from source
+# Use DOCKER_BUILDKIT=1 flag for caching when building (DOCKER_BUILDKIT=1 docker-compose -f ./compose-dev.yaml up -d)
+FROM golang:1.21 AS build-stage
+
+WORKDIR /gqs
+
+COPY . .
+RUN apt update
+RUN --mount=type=cache,target=/root/.gqs_cache apt install npm -y &&\
+    go install github.com/a-h/templ/cmd/templ@latest &&\
+    curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.1/tailwindcss-linux-x64 &&\
+    chmod +x tailwindcss-linux-x64 &&\
+    go mod download &&\
+    npm install
+
+RUN mkdir assets/dist
+RUN mkdir assets/static
+
+RUN templ generate
+RUN ./tailwindcss-linux-x64 -i ./assets/tailwind.css -o ./assets/dist/styles.css --minify
+RUN	CGO_ENABLED=0 GOOS=linux go build -o .out/gqs cmd/gqs/main.go 
+RUN	CGO_ENABLED=0 GOOS=linux go build -o .out/generator cmd/generator/main.go
+    
+FROM alpine:3.11.3 AS build-release-stage
+WORKDIR /gqs
+
+COPY --from=build-stage /gqs/.out/gqs gqs
+COPY --from=build-stage /gqs/.out/generator generator
+COPY --from=build-stage /gqs/assets /gqs/assets
+
+ENTRYPOINT ["/bin/sh", "-c", "/gqs/generator -source psql && /gqs/gqs"]

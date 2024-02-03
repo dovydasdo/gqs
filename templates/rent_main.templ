@@ -1,0 +1,52 @@
+package templates
+
+import "github.com/dovydasdo/gqs/templates/shared"
+import "github.com/dovydasdo/gqs/templates/components/graphs"
+import "github.com/dovydasdo/gqs/models"
+import "strconv"
+
+templ MainRentPage(args []models.DailyStatsByCity) {
+	@shared.Page("Graph Quasar - rent info"){
+		@Info()
+		<div class="flex-initial w-800">
+			@graphs.AllInfo(args)
+		</div>
+	}
+}
+
+templ AllStats(stats []models.DailyStatsByCity){
+		<div class="flex flex-col">
+			for _, stat := range stats{
+				<div class="flex-auto">
+					<div id="city">
+					city= {stat.City}
+					</div>
+					<div id="price">
+						average price= {intToString(stat.AveragePrice)}
+					</div>
+					<div id="pps">
+						price per sqare = {floatToString(stat.AveragePricePerSquare)}
+					</div>
+					<div id="ftg">
+						average footage = {floatToString(stat.AverageFootage)}
+					</div>
+					<br/>
+				</div>
+			}
+		</div>
+}
+
+templ Info(){
+	<p>
+		<h1>Graphs for all the things...</h1>	
+	</p>
+}
+ 
+
+func floatToString(f float64) string{
+	return strconv.FormatFloat(f, 'f', -1, 64)
+}
+
+func intToString(i int) string{
+	return strconv.Itoa(i)
+}

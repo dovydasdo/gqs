@@ -33,7 +33,12 @@ func main() {
 
 	mainGen := generators.GetMainGenerator(reader)
 
-	err = mainGen.Generate("./assets/static/index.html")
+	err = mainGen.GenerateIndex("./assets/static/index.html")
+	if err != nil {
+		log.Printf("Failed to generate files: %v", err)
+	}
+
+	err = mainGen.GenerateRentPage("./assets/static/rent.html")
 	if err != nil {
 		log.Printf("Failed to generate files: %v", err)
 	}

@@ -16,9 +16,13 @@ func main() {
 	flag.Parse()
 
 	r := gin.Default()
-	r.LoadHTMLFiles("assets/static/index.html")
+	r.LoadHTMLFiles("assets/static/index.html", "assets/static/rent.html")
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{})
+	})
+
+	r.GET("/rent", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "rent.html", gin.H{})
 	})
 
 	r.Static("/assets", "./assets/dist")

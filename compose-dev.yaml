@@ -1,9 +1,9 @@
 services:
-  gqs:
+  gqs_dev:
     build:
       context: .
-      dockerfile: Dockerfile
-    image: gqs
+      dockerfile: Dockerfile-dev
+    image: gqs_dev
     ports:
      - "8080:8080"
     env_file:
