@@ -42,4 +42,9 @@ func main() {
 	if err != nil {
 		log.Printf("Failed to generate files: %v", err)
 	}
+
+	err = mainGen.GenerateInfoPage("./assets/static/info.html")
+	if err != nil {
+		log.Printf("Failed to generate files: %v", err)
+	}
 }

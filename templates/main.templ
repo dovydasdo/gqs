@@ -1,23 +1,24 @@
 package templates
 
 import "github.com/dovydasdo/gqs/templates/shared"
-import "github.com/dovydasdo/gqs/templates/components/stats"
 import "github.com/dovydasdo/gqs/templates/components/menu"
+import "github.com/dovydasdo/gqs/templates/components/stats"
 
 templ Main() {
 	@shared.Page("Graphquasar") {
 		<div class="flex min-h-screen">
 			@menu.Menu("Graphquasar", "/svgs/logo.svg") {
-				@menu.MenuItem("About", "/svgs/info.svg")
-				@menu.MenuItem("Rent", "/svgs/rent.svg")
+				@menu.MenuItem("About", "/svgs/info.svg", "/info")
+				@menu.MenuItem("Rent", "/svgs/rent.svg", "/rent")
 				<p class="pl-6 pt-8">more comming soon...</p>
 			}
 			<div class="flex-auto">
-				<main class="min-h-screen bg-white">
-					@stats.Grid("General rent stats for past x mounths", "cool description")
+				<main id="main-content" class="min-h-screen bg-white">
+					@stats.Grid("cool", "beans")
 				</main>
 				@shared.Footer()
 			</div>
+			<div id="loading" class="hidden">Loading...</div>
 		</div>
 	}
 }

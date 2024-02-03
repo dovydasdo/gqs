@@ -11,8 +11,8 @@ import "io"
 import "bytes"
 
 import "github.com/dovydasdo/gqs/templates/shared"
-import "github.com/dovydasdo/gqs/templates/components/stats"
 import "github.com/dovydasdo/gqs/templates/components/menu"
+import "github.com/dovydasdo/gqs/templates/components/stats"
 
 func Main() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
@@ -43,7 +43,7 @@ func Main() templ.Component {
 					templ_7745c5c3_Buffer = templ.GetBuffer()
 					defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 				}
-				templ_7745c5c3_Err = menu.MenuItem("About", "/svgs/info.svg").Render(ctx, templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = menu.MenuItem("About", "/svgs/info.svg", "/info").Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -51,7 +51,7 @@ func Main() templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = menu.MenuItem("Rent", "/svgs/rent.svg").Render(ctx, templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = menu.MenuItem("Rent", "/svgs/rent.svg", "/rent").Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -77,11 +77,11 @@ func Main() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex-auto\"><main class=\"min-h-screen bg-white\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex-auto\"><main id=\"main-content\" class=\"min-h-screen bg-white\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = stats.Grid("General rent stats for past x mounths", "cool description").Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = stats.Grid("cool", "beans").Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -90,6 +90,15 @@ func Main() templ.Component {
 				return templ_7745c5c3_Err
 			}
 			templ_7745c5c3_Err = shared.Footer().Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div id=\"loading\" class=\"hidden\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Var5 := `Loading...`
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var5)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

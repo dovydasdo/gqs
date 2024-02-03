@@ -1,8 +1,8 @@
 package menu
 
 templ Menu(title, path string) {
-	<div class="w-64">
-		@Title(title, path)
+	<div hx-trigger="click" hx-target="#main-content" class="w-64 min-w-64">
+		@Title(title, path, "/info")
 		{ children... }
 	</div>
 }

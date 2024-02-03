@@ -1,44 +1,41 @@
 package graphs
 
 import (
-    "github.com/dovydasdo/gqs/models"
+	"github.com/dovydasdo/gqs/models"
 	"fmt"
 	"strconv"
 )
 
-templ Graph(data models.StatsByCity, maxPrice, diff int){
-    
-    <table class="charts-css column show-heading show-labels show-primary-axis show-4-secondary-axes show-data-axes hide-data data-spacing-5">
-
-    <caption> {data.City} </caption>
-    <thead>
-        <tr>
-        <th scope="col"> Date</th>
-        <th scope="col"> Average price </th>
-        </tr>
-    </thead>
-
-    <tbody>
-        for _, date:= range data.SortedDates{
-            <tr>
-            //    <th> {date.Format("2006-01-02")}</th>
-               <th> {strconv.Itoa(int(date.Month()))+" - "+strconv.Itoa(date.Day())}</th>
-                // {getRawTd(0, maxPrice, val)}
-                @templ.Raw(getRawTd(diff, priceDiff(maxPrice, data.PriceStats[date]), data.PriceStats[date]))
-            </tr>
-        }
-    </tbody>
-    </table>
+templ Graph(data models.StatsByCity, maxPrice, diff int) {
+	<table class="charts-css column show-heading show-labels show-primary-axis show-4-secondary-axes show-data-axes hide-data data-spacing-5">
+		<caption>{ data.City } </caption>
+		<thead>
+			<tr>
+				<th scope="col">Date</th>
+				<th scope="col">Average price </th>
+			</tr>
+		</thead>
+		<tbody>
+			for _, date:= range data.SortedDates {
+				<tr>
+					// <th> {date.Format("2006-01-02")}</th>
+					<th>{ strconv.Itoa(int(date.Month()))+" - "+strconv.Itoa(date.Day()) }</th>
+					// {getRawTd(0, maxPrice, val)}
+					@templ.Raw(getRawTd(diff, priceDiff(maxPrice, data.PriceStats[date]), data.PriceStats[date]))
+				</tr>
+			}
+		</tbody>
+	</table>
 }
 
-func priceDiff(max, price int) int{
-    return max -price
+func priceDiff(max, price int) int {
+	return max - price
 }
 
-func getRawTd(max, diff, price int) string{
-    return "<td style=\""+getSizeString(max - diff + 1, max + 1)+"\">"+strconv.Itoa(price)+"</td>"
+func getRawTd(max, diff, price int) string {
+	return "<td style=\"" + getSizeString(max-diff+1, max+1) + "\">" + strconv.Itoa(price) + "</td>"
 }
 
-func getSizeString(val, max int) string{
-    return fmt.Sprintf("--size: calc( %v/ %v );", val, max)
+func getSizeString(val, max int) string {
+	return fmt.Sprintf("--size: calc( %v/ %v );", val, max)
 }

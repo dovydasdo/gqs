@@ -6,6 +6,7 @@ import (
 
 	"github.com/dovydasdo/gqs/models"
 	"github.com/dovydasdo/gqs/templates"
+	"github.com/dovydasdo/gqs/templates/components/stats"
 )
 
 type MainStatsReader interface {
@@ -50,5 +51,15 @@ func (g *MainGenerator) GenerateRentPage(path string) error {
 
 	templates.MainRentPage(args).Render(context.Background(), file)
 
+	return nil
+}
+func (g *MainGenerator) GenerateInfoPage(path string) error {
+	// open file writer
+	file, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	stats.Grid("Main page", "some cool stats").Render(context.Background(), file)
 	return nil
 }

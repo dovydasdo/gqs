@@ -16,13 +16,24 @@ func main() {
 	flag.Parse()
 
 	r := gin.Default()
-	r.LoadHTMLFiles("assets/static/index.html", "assets/static/rent.html")
+	r.LoadHTMLFiles("assets/static/index.html", "assets/static/rent.html", "assets/static/info.html")
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{})
 	})
 
 	r.GET("/rent", func(c *gin.Context) {
+		c.Writer.Header().Set("Cache-Control", "public, max-age=21600, immutable")
 		c.HTML(http.StatusOK, "rent.html", gin.H{})
+	})
+
+	r.GET("/about", func(c *gin.Context) {
+		c.Writer.Header().Set("Cache-Control", "public, max-age=21600, immutable")
+		c.HTML(http.StatusOK, "rent.html", gin.H{})
+	})
+
+	r.GET("/info", func(c *gin.Context) {
+		c.Writer.Header().Set("Cache-Control", "public, max-age=21600, immutable")
+		c.HTML(http.StatusOK, "info.html", gin.H{})
 	})
 
 	r.Static("/assets", "./assets/dist")
